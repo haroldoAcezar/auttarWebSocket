@@ -1,7 +1,4 @@
 ﻿using Auttar.Infrastructure.IoC;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using System;
 
 namespace Auttar.Web.Mvc
 {    

@@ -5,5 +5,6 @@ namespace Auttar.Application.Interfaces
     public interface IPinPadServices
     {
         Task<RespostaVendaViewModel> Post(VendaViewModel venda);
+        Task<RespostaCancelamentoViewModel> Cancel(CancelamentoViewModel cancelamento);
     }
 }

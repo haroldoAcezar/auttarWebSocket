@@ -38,6 +38,20 @@ namespace Auttar.Application.Services
             return respostaVenda;
         }
 
+        public async Task<RespostaCancelamentoViewModel> Cancel(CancelamentoViewModel cancelamento)
+        {
+            string message = await SendAsync(cancelamento);
+
+            RespostaCancelamentoViewModel respostaCancelamento = new RespostaCancelamentoViewModel();
+
+            respostaCancelamento = JsonSerializer.Deserialize<RespostaCancelamentoViewModel>(message);
+
+            if (respostaCancelamento == null)
+                return null;
+
+            return respostaCancelamento;
+        }
+
         protected async Task<bool> Confirm(int nsuCTF)
         {
             Confirmacao confirmacao = new Confirmacao() { numeroTransacao = nsuCTF };

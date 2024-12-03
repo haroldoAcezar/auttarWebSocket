@@ -21,6 +21,13 @@ namespace Auttar.Web.Mvc.Controllers
             return View(venda);
         }
 
+        public IActionResult CancelarVenda()
+        {
+            CancelamentoViewModel cancelamento = new CancelamentoViewModel();
+
+            return View(cancelamento);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Venda(VendaViewModel venda)
         {
@@ -33,6 +40,21 @@ namespace Auttar.Web.Mvc.Controllers
             venda.resposta = jsonString;
 
             return View(venda);
-        }       
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CancelarVenda(CancelamentoViewModel cancelar)
+        {
+            RespostaCancelamentoViewModel respostaCancelamento = new RespostaCancelamentoViewModel();
+
+            respostaCancelamento = await _pinPadServices.Cancel(cancelar);
+
+            string jsonString = JsonSerializer.Serialize(respostaCancelamento);
+
+            cancelar.resposta = jsonString;
+
+            return View(cancelar);
+        }
+
     }
 }

@@ -28,10 +28,17 @@ namespace Auttar.Web.Mvc.Controllers
             return View(cancelamento);
         }
 
+        public IActionResult ConsultaVendaPix()
+        {
+            ConsultaPixViewModel pix = new ConsultaPixViewModel();
+
+            return View(pix);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Venda(VendaViewModel venda)
         {
-            RespostaVendaViewModel respostaVenda = new RespostaVendaViewModel();
+            RespostaTransacaoViewModel respostaVenda = new RespostaTransacaoViewModel();
 
             respostaVenda = await _pinPadServices.Post(venda);
 
@@ -45,7 +52,7 @@ namespace Auttar.Web.Mvc.Controllers
         [HttpPost]
         public async Task<IActionResult> CancelarVenda(CancelamentoViewModel cancelar)
         {
-            RespostaCancelamentoViewModel respostaCancelamento = new RespostaCancelamentoViewModel();
+            RespostaTransacaoViewModel respostaCancelamento = new RespostaTransacaoViewModel();
 
             respostaCancelamento = await _pinPadServices.Cancel(cancelar);
 
@@ -56,5 +63,18 @@ namespace Auttar.Web.Mvc.Controllers
             return View(cancelar);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ConsultaPix(ConsultaPixViewModel pix)
+        {
+            RespostaTransacaoViewModel respostaVenda = new RespostaTransacaoViewModel();
+
+            respostaVenda = await _pinPadServices.GetPix(pix);
+
+            string jsonString = JsonSerializer.Serialize(respostaVenda);
+
+            pix.resposta = jsonString;
+
+            return View(pix);
+        }
     }
 }

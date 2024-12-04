@@ -18,13 +18,27 @@ namespace Auttar.Application.Services
             _configuration = configuration;            
         }
 
-        public async Task<RespostaVendaViewModel> Post(VendaViewModel venda)
+        public async Task<RespostaTransacaoViewModel> GetPix(ConsultaPixViewModel pix)
+        {
+            string message = await SendAsync(pix);
+
+            RespostaTransacaoViewModel respostaVenda = new RespostaTransacaoViewModel();
+
+            respostaVenda = JsonSerializer.Deserialize<RespostaTransacaoViewModel>(message);
+
+            if (respostaVenda == null)
+                return null;
+
+            return respostaVenda;
+        }
+
+        public async Task<RespostaTransacaoViewModel> Post(VendaViewModel venda)
         {
             string message = await SendAsync(venda);
 
-            RespostaVendaViewModel respostaVenda = new RespostaVendaViewModel();
+            RespostaTransacaoViewModel respostaVenda = new RespostaTransacaoViewModel();
 
-            respostaVenda = JsonSerializer.Deserialize<RespostaVendaViewModel>(message);
+            respostaVenda = JsonSerializer.Deserialize<RespostaTransacaoViewModel>(message);
 
             if (respostaVenda == null)
                 return null;
@@ -38,16 +52,22 @@ namespace Auttar.Application.Services
             return respostaVenda;
         }
 
-        public async Task<RespostaCancelamentoViewModel> Cancel(CancelamentoViewModel cancelamento)
+        public async Task<RespostaTransacaoViewModel> Cancel(CancelamentoViewModel cancelamento)
         {
             string message = await SendAsync(cancelamento);
 
-            RespostaCancelamentoViewModel respostaCancelamento = new RespostaCancelamentoViewModel();
+            RespostaTransacaoViewModel respostaCancelamento = new RespostaTransacaoViewModel();
 
-            respostaCancelamento = JsonSerializer.Deserialize<RespostaCancelamentoViewModel>(message);
+            respostaCancelamento = JsonSerializer.Deserialize<RespostaTransacaoViewModel>(message);
 
             if (respostaCancelamento == null)
                 return null;
+
+            if (respostaCancelamento.retorno == 0)
+            {
+                if (!await Confirm(respostaCancelamento.nsuCTF))
+                    return null;
+            }
 
             return respostaCancelamento;
         }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Auttar.Domain.Entities
+﻿namespace Auttar.Domain.Entities
 {
-    public class ConsultaPix
-    {
+    public class ConsultaPix : Consulta
+    {        
+        public Pix pix { get; set; }
     }
+
+    public class Pix
+    {
+        public string transactionId { get; set; }
+        public string receiverPsp { get; set; }
+    } 
 }

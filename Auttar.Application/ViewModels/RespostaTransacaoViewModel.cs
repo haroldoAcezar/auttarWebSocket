@@ -1,6 +1,6 @@
 ﻿namespace Auttar.Application.ViewModels
 {
-    public class RespostaVendaViewModel
+    public class RespostaTransacaoViewModel
     {
         public int operacao { get; set; } = 0;
         public int retorno { get; set; } = 0;

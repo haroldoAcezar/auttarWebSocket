@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Xml;
 
 namespace Auttar.Application.Services
 {
@@ -88,7 +90,12 @@ namespace Auttar.Application.Services
             using var ws = new ClientWebSocket();
             await ws.ConnectAsync(new Uri(_wsEndPoint), CancellationToken.None);
 
-            string jsonString = JsonSerializer.Serialize(messagePost);
+            JsonSerializerOptions options = new()
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            };
+
+            string jsonString = JsonSerializer.Serialize(messagePost, options);
 
             var bytes = Encoding.UTF8.GetBytes(jsonString);
             var arraySegment = new ArraySegment<byte>(bytes, 0, bytes.Length);

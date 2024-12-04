@@ -64,7 +64,7 @@ namespace Auttar.Web.Mvc.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ConsultaPix(ConsultaPixViewModel pix)
+        public async Task<IActionResult> ConsultaVendaPix(ConsultaPixViewModel pix)
         {
             RespostaTransacaoViewModel respostaVenda = new RespostaTransacaoViewModel();
 

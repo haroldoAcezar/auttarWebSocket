@@ -75,6 +75,6 @@ namespace Auttar.Web.Mvc.Controllers
             pix.resposta = jsonString;
 
             return View(pix);
-        }
+        }       
     }
 }

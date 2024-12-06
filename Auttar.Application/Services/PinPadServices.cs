@@ -6,7 +6,6 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Xml;
 
 namespace Auttar.Application.Services
 {
@@ -79,6 +78,15 @@ namespace Auttar.Application.Services
             Confirmacao confirmacao = new Confirmacao() { numeroTransacao = nsuCTF };
 
             string message = await SendAsync(confirmacao);
+
+            return true;
+        }
+
+        protected async Task<bool> Desfazer(int nsuCTF)
+        {
+            Desfazer desfazer = new Desfazer() { numeroTransacao = nsuCTF };
+
+            string message = await SendAsync(desfazer);
 
             return true;
         }

@@ -6,6 +6,6 @@ namespace Auttar.Application.Interfaces
     {
         Task<RespostaTransacaoViewModel> Post(VendaViewModel venda);
         Task<RespostaTransacaoViewModel> Cancel(CancelamentoViewModel cancelamento);
-        Task<RespostaTransacaoViewModel> GetPix(ConsultaPixViewModel pix);
+        Task<RespostaTransacaoViewModel> GetPix(ConsultaPixViewModel pix);        
     }
 }
